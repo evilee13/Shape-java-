@@ -14,11 +14,8 @@ public class App {
 
         ArrayList<Shape> shapeArrayList = (ArrayList<Shape>) fillShapeList();
 
-        Collections.sort(shapeArrayList, new Comparator<Shape>() {
-            public int compare(Shape o1, Shape o2) {
-                return o1.toString().compareTo(o2.toString());
-            }
-        });
+        deleteElement(shapeArrayList);
+        sortList(shapeArrayList);
     }
 
     public static Shape generateShape() {
@@ -43,14 +40,22 @@ public class App {
         return shapeArrayList;
     }
 
-    public static List<Shape> deleteElement() {
-        int n = 50;
-        ListIterator<Shape> shapeIterator = shapeArrayList.iterator();
+    public static void deleteElement(List<Shape> list) {
+        int n = 100;
+        Iterator<Shape> shapeIterator = list.iterator();
         while (shapeIterator.hasNext()) {
             Shape nextShape = shapeIterator.next();
             if (nextShape.calculateSquare() > n) {
                 shapeIterator.remove();
             }
         }
+    }
+
+    public static void sortList(List<Shape> list) {
+        Collections.sort(list, new Comparator<Shape>() {
+            public int compare(Shape o1, Shape o2) {
+                return Double.compare(o1.calculateSquare(), o2.calculateSquare());
+            }
+        });
     }
 }
